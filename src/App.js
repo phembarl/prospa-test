@@ -88,6 +88,7 @@ const App = () => {
       <form className="form">
         {subAccounts.map((acc, i) => {
           const isCurrent = acc.biz_wallet_type === 'current';
+          console.log(acc.incoming_allocation);
           return (
             <div key={acc.biz_wallet_id}>
               <div>
@@ -100,7 +101,9 @@ const App = () => {
                   className="input"
                   type="number"
                   value={
-                    isCurrent ? currentAllocation : acc.incoming_allocation
+                    isCurrent && acc.incoming_allocation === '0.0'
+                      ? currentAllocation
+                      : acc.incoming_allocation
                   }
                   onChange={e => handleChange(e, i)}
                   disabled={isCurrent}
